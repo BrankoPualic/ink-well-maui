@@ -43,13 +43,16 @@
             </ContentView>
 
             <!-- BODY -->
-            <CollectionView ItemsSource="{Binding Posts}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <cmp:Post Identifier="{Binding Id}" Title="{Binding Title}" Description="{Binding Description}" Image="{Binding PostImageUrl}" Author="{Binding Author.FullName}" CreatedAt="{Binding CreatedAt}" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <ContentView Padding="10,0">
+                <CollectionView ItemsSource="{Binding Posts}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <cmp:Post Identifier="{Binding Id}" Title="{Binding Title}" Description="{Binding Description}" Image="{Binding PostImageUrl}" Author="{Binding Author.FullName}" CreatedAt="{Binding CreatedAt}" ViewCount="{Binding ViewCount}" Likes="{Binding Likes}" Comments="{Binding Comments}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                
+            </ContentView>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

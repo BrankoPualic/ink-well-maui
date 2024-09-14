@@ -1,12 +1,13 @@
 ﻿using InkWell.MAUI.Business.Dtos.Post;
 using InkWell.MAUI.Business.Interfaces;
+using InkWell.MAUI.Business.Services;
 using InkWell.MAUI.Common;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace InkWell.MAUI.ViewModels;
 
-public class MainPageVM
+public class MainPageVM : BaseVM
 {
 	public MProp<string> Keyword { get; set; } = new();
 
@@ -20,23 +21,35 @@ public class MainPageVM
 
 	public ICommand SigninCommand { get; }
 
+	// Services
+
+	private IPostService postService;
+
 	public MainPageVM()
 	{
+		postService = new PostService();
+
 		RefreshCommand = new Command(Refresh);
-		SignupCommand = new Command(Signup);
-		SigninCommand = new Command(Signin);
+		//SignupCommand = new Command(Signup);
+		//SigninCommand = new Command(Signin);
+
+		LoadPosts();
 	}
 
-	public MainPageVM(IAuthService authService) : this()
+	private void Refresh() => LoadPosts();
+
+	//private void Signup() => RedirectExtensions<SignupPage>.Redirect();
+
+	//private void Signin() => RedirectExtensions<SigninPage>.Redirect();
+
+	private async void LoadPosts()
 	{
+		var response = await postService.GetListAsync(Keyword.Value);
+
+		Posts.Clear();
+
+		Posts = new(response.Items);
+
+		OnPropertyChanged(nameof(Posts));
 	}
-
-	private void Refresh()
-	{ }
-
-	private void Signup()
-	{ }
-
-	private void Signin()
-	{ }
 }

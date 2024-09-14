@@ -10,33 +10,37 @@
 
             <HorizontalStackLayout>
                 <VerticalStackLayout>
-                    <Label Text="{Binding Title}" FontSize="Medium" />
-                    <Label Text="{Binding Description}" />
-                    <Label Text="{Binding CreateDetails}" FontSize="Small" TextColor="LightGray" />
+                    <Label Text="{Binding Title}" FontSize="Small" />
+                    <Label Text="{Binding Description}" FontSize="15"/>
+                    <Label Text="{Binding CreateDetails}" Style="{StaticResource LabelSmallTextStyleGrey}" />
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Read more" FontSize="Small" TextColor="DodgerBlue" TextDecorations="Underline">
+                                <Span Text="Read more" Style="{StaticResource LabelSmallTextStyleDodgerBlue}">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ReadMoreCommand}" />
                                     </Span.GestureRecognizers>
                                 </Span>
 
+                                <Span Text=" " />
                                 <Span Text="&#xf178;" FontFamily="FontAwesome" FontSize="12" TextColor="DodgerBlue" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Label FontSize="Small" TextColor="LightGrey">
+                    <Label>
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{Binding ViewCount}" />
-                                <Span Text="&#xf06e;" FontFamily="FontAwesome" FontSize="12" />
-
-                                <Span Text="{Binding Likes}" />
-                                <Span Text="&#xf004;" FontFamily="FontAwesome" FontSize="12" />
-
-                                <Span Text="{Binding Comments}" />
-                                <Span Text="&#xf075;" FontFamily="FontAwesome" FontSize="12" />
+                                <Span Text="{Binding ViewCount}" Style="{StaticResource LabelSmallTextStyleGrey}" />
+                                <Span Text=" " />
+                                <Span Text="&#xf06e;" FontFamily="FontAwesome" FontSize="12" TextColor="Grey" />
+                                <Span Text="   " />
+                                <Span Text="{Binding Likes}" Style="{StaticResource LabelSmallTextStyleGrey}" />
+                                <Span Text=" " />
+                                <Span Text="&#xf004;" FontFamily="FontAwesome" FontSize="12" TextColor="Grey" />
+                                <Span Text="   " />
+                                <Span Text="{Binding Comments}" Style="{StaticResource LabelSmallTextStyleGrey}" />
+                                <Span Text=" " />
+                                <Span Text="&#xf075;" FontFamily="FontAwesome" FontSize="12" TextColor="Grey" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>

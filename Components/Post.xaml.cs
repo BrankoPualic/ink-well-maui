@@ -1,9 +1,10 @@
 using InkWell.MAUI.Common;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace InkWell.MAUI.Components;
 
-public partial class Post : ContentView
+public partial class Post : ContentView, INotifyPropertyChanged
 {
 	// Commands
 
@@ -26,10 +27,10 @@ public partial class Post : ContentView
 		BindableProperty.Create(nameof(Image), typeof(string), typeof(Post), string.Empty);
 
 	public static readonly BindableProperty AuthorProperty =
-		BindableProperty.Create(nameof(Author), typeof(string), typeof(Post), string.Empty);
+		BindableProperty.Create(nameof(Author), typeof(string), typeof(Post), string.Empty, propertyChanged: OnCreateDetailsChanged);
 
 	public static readonly BindableProperty CreatedAtProperty =
-		BindableProperty.Create(nameof(CreatedAt), typeof(DateTime), typeof(Post), null);
+		BindableProperty.Create(nameof(CreatedAt), typeof(DateTime), typeof(Post), null, propertyChanged: OnCreateDetailsChanged);
 
 	public static readonly BindableProperty ViewCountProperty =
 		BindableProperty.Create(nameof(ViewCount), typeof(int), typeof(Post), 0);
@@ -67,7 +68,7 @@ public partial class Post : ContentView
 	public string Author
 	{
 		get => (string)GetValue(AuthorProperty);
-		set => SetValue(CreatedAtProperty, value);
+		set => SetValue(AuthorProperty, value);
 	}
 
 	public DateTime CreatedAt
@@ -108,4 +109,10 @@ public partial class Post : ContentView
 	// methods
 
 	//private void ReadMore() => App.Current.MainPage = new PostPage(Identifier);
+
+	private static void OnCreateDetailsChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		var post = (Post)bindable;
+		post.OnPropertyChanged(nameof(CreateDetails)); // Notify that CreateDetails changed
+	}
 }

@@ -18,4 +18,14 @@
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="BorderWidth" Value="2" />
     </Style>
+
+    <!-- Font styles -->
+    <Style x:Key="LabelSmallTextStyleGrey" TargetType="Label">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="TextColor" Value="Grey" />
+    </Style>
+    <Style x:Key="LabelSmallTextStyleDodgerBlue" TargetType="Label">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="TextColor" Value="DodgerBlue" />
+    </Style>
 </ResourceDictionary>
