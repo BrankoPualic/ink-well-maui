@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using InkWell.MAUI.Business.Interfaces;
+using InkWell.MAUI.Business.Services;
+using Microsoft.Extensions.Logging;
 
 namespace InkWell;
+
 public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
@@ -13,6 +16,8 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
+
+		builder.Services.AddScoped<IAuthService, AuthService>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

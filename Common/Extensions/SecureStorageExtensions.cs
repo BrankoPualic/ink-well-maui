@@ -1,4 +1,5 @@
 ﻿using InkWell.MAUI.Business.Dtos.Auth;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace InkWell.MAUI.Common.Extensions;
@@ -7,16 +8,18 @@ public static class SecureStorageExtensions
 {
 	public static UserAuth GetUser(this ISecureStorage storage)
 	{
-		var token = Task.Run(async () => await storage.GetAsync(Constants.STORAGE_TOKEN)).Result;
+		var user = Task.Run(async () => await storage.GetAsync(Constants.STORAGE_USER)).Result;
 
-		if (token is null)
+		if (user is null)
 			return null;
 
+		var userDeserialized = JsonConvert.DeserializeObject<AuthResponseDto>(user);
+
 		var handler = new JwtSecurityTokenHandler();
-		var jsonToken = handler.ReadToken(token);
+		var jsonToken = handler.ReadToken(userDeserialized?.Token);
 		var tokenS = jsonToken as JwtSecurityToken;
 
-		var id = tokenS.Claims.First(_ => _.Type == Constants.CLAIM_ID).Value;
+		var id = tokenS!.Claims.First(_ => _.Type == Constants.CLAIM_ID).Value;
 		var role = tokenS.Claims.First(_ => _.Type == Constants.CLAIM_ROLE).Value;
 		var exp = tokenS.Claims.First(_ => _.Type == Constants.CLAIM_EXP).Value;
 
@@ -26,15 +29,16 @@ public static class SecureStorageExtensions
 
 		if (dateTime < DateTime.Now)
 		{
-			SecureStorage.Default.Remove(Constants.STORAGE_TOKEN);
+			SecureStorage.Default.Remove(Constants.STORAGE_USER);
 			return null;
 		}
 
 		return new()
 		{
-			Id = Guid.Parse(id),
-			Token = new(token),
-			Username = ""
+			Id = Guid.Parse(id!),
+			Token = userDeserialized!.Token,
+			Username = userDeserialized!.Username,
+			Roles = role.Split(',')
 		};
 	}
 
