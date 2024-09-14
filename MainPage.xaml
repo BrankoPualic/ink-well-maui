@@ -2,20 +2,20 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InkWell.MainPage"
-             xmlns:cmp="clr-namespace:InkWell.MAUI.Components">
+             xmlns:cmp="clr-namespace:InkWell.MAUI.Components"
+             xmlns:local="clr-namespace:InkWell.MAUI.ViewModels">
+
+    <ContentPage.BindingContext>
+        <local:MainPageVM></local:MainPageVM>
+    </ContentPage.BindingContext>
 
     <ScrollView BackgroundColor="White">
         <VerticalStackLayout>
-            <!--<Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />-->
 
             <!-- HEADER -->
-            <Frame HasShadow="True" CornerRadius="0">
+            <Frame HasShadow="True" CornerRadius="0" Padding="20,10">
 
-                <Grid ColumnDefinitions="Auto, *, Auto" Padding="1">
+                <Grid ColumnDefinitions="Auto, *, Auto">
 
                     <HorizontalStackLayout Grid.Column="0" Spacing="5" VerticalOptions="Center">
                         <Label Text="InkWell" FontSize="Medium" Margin="0,0,10,0" FontAttributes="Bold" TextColor="Black" VerticalOptions="Center" />
@@ -25,17 +25,28 @@
                     <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
 
                     <HorizontalStackLayout Grid.Column="2" Spacing="5" VerticalOptions="Center">
-                        <Button Text="Signin" Command="{Binding Signin}" Style="{StaticResource SecondaryBtn}" />
-                        <Button Text="Signup" Command="{Binding Signup}" Style="{StaticResource PrimaryBtn}" />
+                        <Button Text="Signin" Command="{Binding SigninCommand}" Style="{StaticResource SecondaryBtn}" />
+                        <Button Text="Signup" Command="{Binding SignupCommand}" Style="{StaticResource PrimaryBtn}" />
                     </HorizontalStackLayout>
                 </Grid>
             </Frame>
+
+            <!-- ACTION LINE -->
+            <ContentView Padding="0,10,20,0">
+                <Grid ColumnDefinitions="*, Auto">
+                    <Button Grid.Column="1" Text="Refresh" Command="{Binding RefreshCommand}" Style="{StaticResource PrimaryBtn}" HorizontalOptions="End">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="FontAwesome" Glyph="&#xf2f9;" Size="15" />
+                        </Button.ImageSource>
+                    </Button>
+                </Grid>
+            </ContentView>
 
             <!-- BODY -->
             <CollectionView ItemsSource="{Binding Posts}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <cmp:Post Identifier="{Binding Id}" Title="{Binding Title}" Description="{Binding Description}" Image="{Binding Image}" Author="{Binding Author}" CreatedAt="{Binding CreatedAt}" />
+                        <cmp:Post Identifier="{Binding Id}" Title="{Binding Title}" Description="{Binding Description}" Image="{Binding PostImageUrl}" Author="{Binding Author.FullName}" CreatedAt="{Binding CreatedAt}" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

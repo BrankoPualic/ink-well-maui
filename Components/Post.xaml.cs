@@ -31,6 +31,15 @@ public partial class Post : ContentView
 	public static readonly BindableProperty CreatedAtProperty =
 		BindableProperty.Create(nameof(CreatedAt), typeof(DateTime), typeof(Post), null);
 
+	public static readonly BindableProperty ViewCountProperty =
+		BindableProperty.Create(nameof(ViewCount), typeof(int), typeof(Post), 0);
+
+	public static readonly BindableProperty LikesProperty =
+		BindableProperty.Create(nameof(Likes), typeof(int), typeof(Post), 0);
+
+	public static readonly BindableProperty CommentsProperty =
+		BindableProperty.Create(nameof(Comments), typeof(int), typeof(Post), 0);
+
 	public Guid Identifier
 	{
 		get => (Guid)GetValue(IdentifierProperty);
@@ -65,6 +74,24 @@ public partial class Post : ContentView
 	{
 		get => (DateTime)GetValue(CreatedAtProperty);
 		set => SetValue(CreatedAtProperty, value);
+	}
+
+	public int ViewCount
+	{
+		get => (int)GetValue(ViewCountProperty);
+		set => SetValue(ViewCountProperty, value);
+	}
+
+	public int Likes
+	{
+		get => (int)GetValue(LikesProperty);
+		set => SetValue(LikesProperty, value);
+	}
+
+	public int Comments
+	{
+		get => (int)GetValue(CommentsProperty);
+		set => SetValue(CommentsProperty, value);
 	}
 
 	#endregion Bindable Properties

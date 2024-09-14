@@ -21,6 +21,22 @@
                                         <TapGestureRecognizer Command="{Binding ReadMoreCommand}" />
                                     </Span.GestureRecognizers>
                                 </Span>
+
+                                <Span Text="&#xf178;" FontFamily="FontAwesome" FontSize="12" TextColor="DodgerBlue" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label FontSize="Small" TextColor="LightGrey">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding ViewCount}" />
+                                <Span Text="&#xf06e;" FontFamily="FontAwesome" FontSize="12" />
+
+                                <Span Text="{Binding Likes}" />
+                                <Span Text="&#xf004;" FontFamily="FontAwesome" FontSize="12" />
+
+                                <Span Text="{Binding Comments}" />
+                                <Span Text="&#xf075;" FontFamily="FontAwesome" FontSize="12" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
