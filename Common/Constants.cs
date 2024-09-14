@@ -15,4 +15,7 @@ public static class Constants
 	public const string ROLE_USERADMIN = "UserAdmin";
 	public const string ROLE_BLOGGER = "Blogger";
 	public const string ROLE_ADMINISTRATOR = "Administrator";
+
+	public const string DATETIME_DATE_FOMRAT = "MM/dd/yyyy";
+	public const string DATETIME_DATE_MONTH_FORMAT = "dd MMMM yyyy";
 }

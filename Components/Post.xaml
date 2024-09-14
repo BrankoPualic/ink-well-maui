@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InkWell.MAUI.Components.Post"
+             x:Name="Self">
+
+    <VerticalStackLayout Padding="10" BindingContext="{x:Reference Self}">
+
+        <Frame BorderColor="Black" CornerRadius="10" Padding="10" HasShadow="True" HeightRequest="150">
+
+            <HorizontalStackLayout>
+                <VerticalStackLayout>
+                    <Label Text="{Binding Title}" FontSize="Medium" />
+                    <Label Text="{Binding Description}" />
+                    <Label Text="{Binding CreateDetails}" FontSize="Small" TextColor="LightGray" />
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Read more" FontSize="Small" TextColor="DodgerBlue" TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ReadMoreCommand}" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Image Source="{Binding Image}" Aspect="AspectFill" HeightRequest="150" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+        </Frame>
+    </VerticalStackLayout>
+</ContentView>
