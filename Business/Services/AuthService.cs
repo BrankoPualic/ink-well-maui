@@ -1,14 +1,16 @@
 ﻿using InkWell.MAUI.Business.Dtos.Auth;
+using InkWell.MAUI.Business.Dtos.Error;
 using InkWell.MAUI.Business.Interfaces;
 using InkWell.MAUI.Common;
 using InkWell.MAUI.Common.Extensions;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace InkWell.MAUI.Business.Services;
 
 public class AuthService : BaseService, IAuthService
 {
-	public MProp<bool> InvalidCredentials { get; set; }
+	public MProp<bool> InvalidCredentials { get; set; } = new();
 
 	public async Task Signin(SigninDto data) => await ProcessAuthorization("auth/signin", data);
 
@@ -33,8 +35,8 @@ public class AuthService : BaseService, IAuthService
 			{
 				App.Current.MainPage = user.Roles switch
 				{
-					//var roles when roles.In(Constants.ROLE_ADMINISTRATOR) => new AdminPage(),
-					//var roles when roles.In(Constants.ROLE_MEMEBER) => new MemberPage(),
+					var roles when roles.In(Constants.ROLE_ADMINISTRATOR) => new MainPage(),
+					var roles when roles.In(Constants.ROLE_MEMEBER) => new MainPage(),
 					_ => throw new InvalidOperationException("Unknown role.")
 				};
 			}
@@ -44,6 +46,23 @@ public class AuthService : BaseService, IAuthService
 			}
 		}
 		else
-			InvalidCredentials = new(true, "Error validating.");
+		{
+			ErrorDto? error = null;
+			if (!string.IsNullOrEmpty(response.Content))
+				error = JsonConvert.DeserializeObject<ErrorDto>(response.Content);
+
+			if (error is null)
+			{
+				InvalidCredentials = new(true, "Error validating.");
+				return;
+			}
+
+			StringBuilder sb = new();
+			sb.AppendLine(error.Message);
+
+			error.SubErrors.ForEach(_ => sb.AppendLine(_.Message));
+
+			InvalidCredentials = new(true, sb.ToString());
+		}
 	}
 }

@@ -16,8 +16,8 @@
                 <HorizontalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
 
                 <HorizontalStackLayout Grid.Column="2" Spacing="5" VerticalOptions="Center">
-                    <Button Text="Signin" Command="{Binding SigninCommand}" Style="{StaticResource SecondaryBtn}" />
-                    <Button Text="Signup" Command="{Binding SignupCommand}" Style="{StaticResource PrimaryBtn}" />
+                    <Button Text="Signin" Clicked="GoToSignin" Style="{StaticResource SecondaryBtn}" />
+                    <Button Text="Signup" Clicked="GoToSignup" Style="{StaticResource PrimaryBtn}" />
                 </HorizontalStackLayout>
             </Grid>
         </Frame>

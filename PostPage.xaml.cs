@@ -1,3 +1,5 @@
+using InkWell.MAUI.Common.Extensions;
+
 namespace InkWell.MAUI;
 
 public partial class PostPage : ContentPage
@@ -18,4 +20,8 @@ public partial class PostPage : ContentPage
 
 	private async void LoadPost()
 	{ }
+
+	private void GoToSignup(object sender, EventArgs args) => RedirectExtensions<SignupPage>.Redirect();
+
+	private void GoToSignin(object sender, EventArgs args) => RedirectExtensions<SigninPage>.Redirect();
 }
