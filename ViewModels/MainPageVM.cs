@@ -26,9 +26,20 @@ public class MainPageVM : BaseVM
 
 	private readonly IPostService postService;
 
+	public MProp<bool> IsSignedIn { get; set; } = new();
+
+	public MProp<string> Username { get; set; } = new();
+
 	public MainPageVM()
 	{
 		postService = new PostService();
+
+		IsSignedIn.Value = Functions.IsSignedIn();
+		if (IsSignedIn.Value)
+		{
+			var user = SecureStorage.Default.GetUser();
+			Username.Value = user.Username;
+		}
 
 		Keyword.OnChange = LoadPosts;
 

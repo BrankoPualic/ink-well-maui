@@ -3,6 +3,7 @@ using InkWell.MAUI.Business.Dtos.Post;
 using InkWell.MAUI.Business.Interfaces;
 using InkWell.MAUI.Business.Services;
 using InkWell.MAUI.Common;
+using InkWell.MAUI.Common.Extensions;
 using InkWell.MAUI.Interfaces;
 using System.Collections.ObjectModel;
 
@@ -20,6 +21,8 @@ public class PostPageVM : BaseVM, IAsyncInitializable
 
 	public MProp<bool> IsSignedIn { get; set; } = new();
 
+	public MProp<string> Username { get; set; } = new();
+
 	public string CreateDetails => $"Created by {Post.Value?.Author.FullName} at {Post.Value?.CreatedAt.ToString(Constants.DATETIME_DATE_MONTH_FORMAT)}";
 
 	private readonly IPostService postService;
@@ -31,6 +34,11 @@ public class PostPageVM : BaseVM, IAsyncInitializable
 		commentService = new CommentService();
 
 		IsSignedIn.Value = Functions.IsSignedIn();
+		if (IsSignedIn.Value)
+		{
+			var user = SecureStorage.Default.GetUser();
+			Username.Value = user.Username;
+		}
 	}
 
 	public PostPageVM(Guid id) : this()
