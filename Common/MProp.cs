@@ -42,6 +42,8 @@ public class MProp<T> : INotifyPropertyChanged
 
 	public bool HasError => !string.IsNullOrEmpty(_error);
 
+	public bool NoError => string.IsNullOrEmpty(_error);
+
 	public T Value
 	{
 		get => _value;

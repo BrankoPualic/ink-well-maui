@@ -24,17 +24,12 @@ public class PostService : BaseService, IPostService
 			: new();
 	}
 
-	public async Task<PostDto> GetSingleAsync(Guid id)
+	public async Task<PostDto?> GetSingleAsync(Guid id)
 	{
-		var dictionary = new Dictionary<string, object>
-		{
-			{ "postId", id }
-		};
-
-		var response = GetWithQueryParametersResponse<PostDto>("post", dictionary);
+		var response = GetResponse<PostDto>($"post/{id}");
 
 		return response.IsSuccessful
 			? response.Data
-			: new();
+			: null;
 	}
 }

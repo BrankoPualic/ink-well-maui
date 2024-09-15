@@ -2,7 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InkWell.MAUI.PostPage"
-             Title="PostPage">
+             Title="PostPage"
+             xmlns:local="clr-namespace:InkWell.MAUI.Common">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ImageUrlToDefaultConverter x:Key="ImageUrlToDefaultConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <VerticalStackLayout>
         <!-- HEADER -->
         <Frame HasShadow="True" CornerRadius="0" Padding="20,10">
@@ -21,5 +29,52 @@
                 </HorizontalStackLayout>
             </Grid>
         </Frame>
+
+        <VerticalStackLayout Padding="50,10">
+            <!-- ACTION LINE -->
+            <ContentView Padding="0,5">
+                <Grid ColumnDefinitions="Auto, *">
+                    <Button Grid.Column="0" Clicked="GoToMainPage" Style="{StaticResource PrimaryBtn}" HorizontalOptions="End">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="FontAwesome" Glyph="&#xf177;" Size="15" />
+                        </Button.ImageSource>
+                    </Button>
+                </Grid>
+            </ContentView>
+            <VerticalStackLayout IsVisible="{Binding Post.NoError}">
+                <Image Source="{Binding Post.Value.PostImageUrl, Converter={StaticResource ImageUrlToDefaultConverter}}" Aspect="AspectFill" HeightRequest="300" HorizontalOptions="FillAndExpand" />
+
+                <Grid ColumnDefinitions="Auto,*,Auto" Margin="0, 10">
+                    <Label Grid.Column="0" Text="{Binding CreateDetails}" Style="{StaticResource LabelSmallTextStyleGrey}" />
+
+                    <Label Grid.Column="2">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Post.Value.ViewCount}" Style="{StaticResource LabelSmallTextStyleGrey}" />
+                                <Span Text=" " />
+                                <Span Text="&#xf06e;" FontFamily="FontAwesome" FontSize="12" TextColor="Grey" />
+                                <Span Text="   " />
+                                <Span Text="{Binding Post.Value.Likes}" Style="{StaticResource LabelSmallTextStyleGrey}" />
+                                <Span Text=" " />
+                                <Span Text="&#xf004;" FontFamily="FontAwesome" FontSize="12" TextColor="Grey" />
+                                <Span Text="   " />
+                                <Span Text="{Binding Post.Value.Comments}" Style="{StaticResource LabelSmallTextStyleGrey}" />
+                                <Span Text=" " />
+                                <Span Text="&#xf075;" FontFamily="FontAwesome" FontSize="12" TextColor="Grey" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+
+                <Label Text="{Binding Post.Value.Title}" FontSize="25" HorizontalOptions="FillAndExpand" Margin="0,0,0,20" />
+
+                <Label Text="{Binding Post.Value.Text}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+            </VerticalStackLayout>
+
+            <HorizontalStackLayout IsVisible="{Binding Post.HasError}">
+                <Label Text="{Binding Post.Error}"  FontSize="25" />
+                <Label Text="   404" FontSize="25" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

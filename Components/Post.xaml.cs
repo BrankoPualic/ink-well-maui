@@ -1,5 +1,6 @@
 using InkWell.MAUI.Common;
 using InkWell.MAUI.Common.Extensions;
+using InkWell.MAUI.ViewModels;
 using System.ComponentModel;
 
 namespace InkWell.MAUI.Components;
@@ -102,7 +103,7 @@ public partial class Post : ContentView, INotifyPropertyChanged
 
 	// methods
 
-	private void ReadMore(object sender, EventArgs args) => RedirectExtensions<PostPage>.Redirect(Identifier);
+	private async void ReadMore(object sender, EventArgs args) => await RedirectExtensions<PostPage>.Redirect<PostVM, Guid>(Identifier);
 
 	private static void OnCreateDetailsChanged(BindableObject bindable, object oldValue, object newValue)
 	{
