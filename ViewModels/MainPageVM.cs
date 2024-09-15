@@ -2,6 +2,7 @@
 using InkWell.MAUI.Business.Interfaces;
 using InkWell.MAUI.Business.Services;
 using InkWell.MAUI.Common;
+using InkWell.MAUI.Common.Extensions;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -23,24 +24,26 @@ public class MainPageVM : BaseVM
 
 	// Services
 
-	private IPostService postService;
+	private readonly IPostService postService;
 
 	public MainPageVM()
 	{
 		postService = new PostService();
 
+		Keyword.OnChange = LoadPosts;
+
 		RefreshCommand = new Command(Refresh);
-		//SignupCommand = new Command(Signup);
-		//SigninCommand = new Command(Signin);
+		SignupCommand = new Command(Signup);
+		SigninCommand = new Command(Signin);
 
 		LoadPosts();
 	}
 
 	private void Refresh() => LoadPosts();
 
-	//private void Signup() => RedirectExtensions<SignupPage>.Redirect();
+	private void Signup() => RedirectExtensions<SignupPage>.Redirect();
 
-	//private void Signin() => RedirectExtensions<SigninPage>.Redirect();
+	private void Signin() => RedirectExtensions<SigninPage>.Redirect();
 
 	private async void LoadPosts()
 	{

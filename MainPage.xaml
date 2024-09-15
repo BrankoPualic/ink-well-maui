@@ -51,7 +51,6 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                
             </ContentView>
         </VerticalStackLayout>
     </ScrollView>
