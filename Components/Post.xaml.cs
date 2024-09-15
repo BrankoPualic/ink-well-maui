@@ -103,7 +103,7 @@ public partial class Post : ContentView, INotifyPropertyChanged
 
 	// methods
 
-	private async void ReadMore(object sender, EventArgs args) => await RedirectExtensions<PostPage>.Redirect<PostVM, Guid>(Identifier);
+	private async void ReadMore(object sender, EventArgs args) => await RedirectExtensions<PostPage>.Redirect<PostPageVM, Guid>(Identifier);
 
 	private static void OnCreateDetailsChanged(BindableObject bindable, object oldValue, object newValue)
 	{

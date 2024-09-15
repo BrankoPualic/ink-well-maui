@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InkWell.MAUI.Components.Comment"
+             x:Name="Self"
+             xmlns:local="clr-namespace:InkWell.MAUI.Common">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <local:ImageUrlToDefaultConverter x:Key="ImageUrlToDefaultConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <VerticalStackLayout BindingContext="{x:Reference Self}">
+
+        <Frame BorderColor="Black" CornerRadius="10" Padding="10" HasShadow="True">
+
+            <Grid RowDefinitions="Auto,*,Auto">
+
+                <HorizontalStackLayout Grid.Row="0" HorizontalOptions="FillAndExpand">
+                    <Image Source="{Binding ProfileImage, Converter={StaticResource ImageUrlToDefaultConverter}}" HeightRequest="45" WidthRequest="45"/>
+                    <Label Text="{Binding Username}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <VerticalStackLayout Grid.Row="1" HorizontalOptions="FillAndExpand" Margin="0,5">
+                    <Label Text="{Binding Title}" IsVisible="{Binding HasTitle}" />
+
+                    <Label Text="{Binding Text}" />
+                </VerticalStackLayout>
+
+                <Grid Grid.Row="2" ColumnDefinitions="Auto,*,Auto">
+                    <Label Grid.Column="0" Text="{Binding CreateDetails}" Style="{StaticResource LabelSmallTextStyleGrey}" />
+
+                    <HorizontalStackLayout Grid.Column="2">
+                        <Label Text="{Binding Upvotes}" Style="{StaticResource LabelSmallTextStyleGrey}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="UpvoteAction" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Text="&#xf30c;" FontFamily="FontAwesome" FontSize="12" TextColor="Grey" Margin="5,0,10,0"/>
+
+                        <Label Text="{Binding Replies}" Style="{StaticResource LabelSmallTextStyleGrey}"/>
+                        <Label Text="&#xf3e5;" FontFamily="FontAwesome" FontSize="12" TextColor="Grey" Margin="5,0,10,0"/>
+                    </HorizontalStackLayout>
+                </Grid>
+            </Grid>
+        </Frame>
+    </VerticalStackLayout>
+</ContentView>

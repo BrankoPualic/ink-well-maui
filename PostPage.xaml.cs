@@ -8,7 +8,7 @@ public partial class PostPage : ContentPage
 	public PostPage()
 	{ }
 
-	public PostPage(PostVM vm) : this()
+	public PostPage(PostPageVM vm) : this()
 	{
 		BindingContext = vm;
 		InitializeComponent();

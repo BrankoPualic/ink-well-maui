@@ -3,15 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InkWell.MAUI.PostPage"
              Title="PostPage"
-             xmlns:local="clr-namespace:InkWell.MAUI.Common">
+             xmlns:local="clr-namespace:InkWell.MAUI.Common"
+             xmlns:cmp="clr-namespace:InkWell.MAUI.Components">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:ImageUrlToDefaultConverter x:Key="ImageUrlToDefaultConverter" />
+            <local:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <VerticalStackLayout>
+    <ScrollView>
+        
+        <VerticalStackLayout>
         <!-- HEADER -->
         <Frame HasShadow="True" CornerRadius="0" Padding="20,10">
 
@@ -69,6 +73,22 @@
                 <Label Text="{Binding Post.Value.Title}" FontSize="25" HorizontalOptions="FillAndExpand" Margin="0,0,0,20" />
 
                 <Label Text="{Binding Post.Value.Text}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+
+                <VerticalStackLayout Margin="0,10">
+                    <Label Text="Comments" Margin="0,0,0,10" FontSize="Small" />
+                    <VerticalStackLayout IsVisible="{Binding NoComments.Value}">
+                        <Label Text="{Binding NoComments.Error}" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout IsVisible="{Binding NoComments.Value, Converter={StaticResource InverseBooleanConverter}}">
+                        <CollectionView ItemsSource="{Binding Comments}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <cmp:Comment Identifier="{Binding Id}" ProfileImage="{Binding User.ProfilePictureUrl}" Username="{Binding User.Username}" Title="{Binding Title}" Text="{Binding Text}" Author="{Binding User.FullName}" CreatedAt="{Binding CreatedAt}" Upvotes="{Binding Upvotes}" Replies="{Binding Replies}" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
             </VerticalStackLayout>
 
             <HorizontalStackLayout IsVisible="{Binding Post.HasError}">
@@ -77,4 +97,5 @@
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

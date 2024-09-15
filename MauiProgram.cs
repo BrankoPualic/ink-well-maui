@@ -20,6 +20,7 @@ public static class MauiProgram
 
 		builder.Services.AddScoped<IAuthService, AuthService>();
 		builder.Services.AddScoped<IPostService, PostService>();
+		builder.Services.AddScoped<ICommentService, CommentService>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

@@ -1,4 +1,6 @@
-﻿namespace InkWell.MAUI.Common;
+﻿using System.Globalization;
+
+namespace InkWell.MAUI.Common;
 
 public class ImageUrlToDefaultConverter : IValueConverter
 {
