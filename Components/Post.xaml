@@ -20,20 +20,22 @@
                     <Label Text="{Binding Title}" FontSize="Small" />
                     <Label Text="{Binding Description}" FontSize="15" />
                     <Label Text="{Binding CreateDetails}" Style="{StaticResource LabelSmallTextStyleGrey}" />
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Read more" Style="{StaticResource LabelSmallTextStyleDodgerBlue}">
-                                    <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding ReadMoreCommand}" />
-                                    </Span.GestureRecognizers>
-                                </Span>
+                    <HorizontalStackLayout>
+                        <Label Text="Read more" Style="{StaticResource LabelSmallTextStyleDodgerBlue}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ReadMore" />
+                            </Label.GestureRecognizers>
+                        </Label>
 
-                                <Span Text=" " />
-                                <Span Text="&#xf178;" FontFamily="FontAwesome" FontSize="12" TextColor="DodgerBlue" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text=" " />
+                                    <Span Text="&#xf178;" FontFamily="FontAwesome" FontSize="12" TextColor="DodgerBlue" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </HorizontalStackLayout>
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>

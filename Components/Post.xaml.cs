@@ -1,15 +1,11 @@
 using InkWell.MAUI.Common;
+using InkWell.MAUI.Common.Extensions;
 using System.ComponentModel;
-using System.Windows.Input;
 
 namespace InkWell.MAUI.Components;
 
 public partial class Post : ContentView, INotifyPropertyChanged
 {
-	// Commands
-
-	public ICommand ReadMoreCommand { get; }
-
 	// Bindable Properties
 
 	#region Bindable Properties
@@ -102,13 +98,11 @@ public partial class Post : ContentView, INotifyPropertyChanged
 	public Post()
 	{
 		InitializeComponent();
-
-		//ReadMoreCommand = new Command(ReadMore);
 	}
 
 	// methods
 
-	//private void ReadMore() => App.Current.MainPage = new PostPage(Identifier);
+	private void ReadMore(object sender, EventArgs args) => RedirectExtensions<PostPage>.Redirect(Identifier);
 
 	private static void OnCreateDetailsChanged(BindableObject bindable, object oldValue, object newValue)
 	{
