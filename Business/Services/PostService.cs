@@ -1,7 +1,6 @@
 ﻿using InkWell.MAUI.Business.Dtos;
 using InkWell.MAUI.Business.Dtos.Post;
 using InkWell.MAUI.Business.Interfaces;
-using Newtonsoft.Json;
 
 namespace InkWell.MAUI.Business.Services;
 
@@ -9,12 +8,14 @@ public class PostService : BaseService, IPostService
 {
 	public async Task<GridDto<PostDto>> GetListAsync(string keyword)
 	{
-		var entryParams = new EntryParams();
-		entryParams.QuickSearch = keyword;
-
-		var dictionary = new Dictionary<string, string>()
+		var entryParams = new EntryParams
 		{
-			{"entryParams", JsonConvert.SerializeObject(entryParams) }
+			QuickSearch = keyword,
+		};
+
+		var dictionary = new Dictionary<string, object>()
+		{
+			{nameof(EntryParams.QuickSearch), entryParams.QuickSearch }
 		};
 		var response = GetWithQueryParametersResponse<GridDto<PostDto>>("post", dictionary);
 
@@ -25,9 +26,9 @@ public class PostService : BaseService, IPostService
 
 	public async Task<PostDto> GetSingleAsync(Guid id)
 	{
-		var dictionary = new Dictionary<string, string>
+		var dictionary = new Dictionary<string, object>
 		{
-			{ "postId", id.ToString() }
+			{ "postId", id }
 		};
 
 		var response = GetWithQueryParametersResponse<PostDto>("post", dictionary);

@@ -34,7 +34,7 @@ public class BaseService
 
 	public static RestRequest Get(string url) => new(url);
 
-	public static RestRequest GetWithQueryParameters(string url, IDictionary<string, string> parameters)
+	public static RestRequest GetWithQueryParameters(string url, IDictionary<string, object> parameters)
 	{
 		var request = new RestRequest(url);
 
@@ -67,7 +67,7 @@ public class BaseService
 
 	public static RestResponse<T> GetResponse<T>(string url) => Client.Execute<T>(Get(url));
 
-	public static RestResponse<T> GetWithQueryParametersResponse<T>(string url, IDictionary<string, string> parameters) =>
+	public static RestResponse<T> GetWithQueryParametersResponse<T>(string url, IDictionary<string, object> parameters) =>
 		Client.Execute<T>(GetWithQueryParameters(url, parameters));
 
 	public static RestResponse<T> PostResponse<T>(string url, object body) => Client.Execute<T>(Post(url, body));
