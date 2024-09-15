@@ -8,4 +8,6 @@ public interface ICommentService
 	Task<GridDto<CommentDto>> GetListAsync(Guid postId);
 
 	Task UpvoteAsync(Guid commentId);
+
+	Task CreateAsync(EntryCommentDto data);
 }

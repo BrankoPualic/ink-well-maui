@@ -7,6 +7,16 @@ namespace InkWell.MAUI.Business.Services;
 
 public class CommentService : BaseService, ICommentService
 {
+	public async Task CreateAsync(EntryCommentDto data)
+	{
+		var isSignedIn = Functions.IsSignedIn();
+		if (!isSignedIn) return;
+
+		PostResponse("comment", data);
+
+		return;
+	}
+
 	public async Task<GridDto<CommentDto>?> GetListAsync(Guid postId)
 	{
 		var response = GetResponse<GridDto<CommentDto>>($"comment/{postId}");

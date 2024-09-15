@@ -32,6 +32,7 @@ public class MainPageVM : BaseVM
 
 	public MainPageVM()
 	{
+		SecureStorage.Default.Remove(Constants.STORAGE_USER);
 		postService = new PostService();
 
 		IsSignedIn.Value = Functions.IsSignedIn();

@@ -6,6 +6,7 @@ using InkWell.MAUI.Common;
 using InkWell.MAUI.Common.Extensions;
 using InkWell.MAUI.Interfaces;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace InkWell.MAUI.ViewModels;
 
@@ -28,8 +29,15 @@ public class PostPageVM : BaseVM, IAsyncInitializable
 	private readonly IPostService postService;
 	private readonly ICommentService commentService;
 
+	public MProp<string> CommentTitle { get; set; } = new();
+
+	public MProp<string> CommentText { get; set; } = new();
+
+	public ICommand SubmitCommentCommand { get; }
+
 	public PostPageVM()
 	{
+		SubmitCommentCommand = new Command(SubmitComment);
 		postService = new PostService();
 		commentService = new CommentService();
 
@@ -72,5 +80,17 @@ public class PostPageVM : BaseVM, IAsyncInitializable
 			Comments = new(comments.Items);
 			OnPropertyChanged(nameof(Comments));
 		}
+	}
+
+	private async void SubmitComment()
+	{
+		EntryCommentDto data = new();
+		data.ToDtoFromVM(this);
+		await commentService.CreateAsync(data);
+
+		CommentText.Value = string.Empty;
+		CommentTitle.Value = string.Empty;
+
+		await FindAsync();
 	}
 }
