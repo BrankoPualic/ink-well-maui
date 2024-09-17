@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InkWell.MAUI.AdminUsersPage"
+             Title="AdminUsersPage"
+             xmlns:cmp="clr-namespace:InkWell.MAUI.Components"
+            xmlns:local="clr-namespace:InkWell.MAUI.ViewModels">
+
+    <ContentPage.BindingContext>
+        <local:AdminUserPageVM></local:AdminUserPageVM>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <!-- ACTION LINE -->
+            <ContentView Padding="10,10,10,0">
+                <Grid ColumnDefinitions="Auto, *">
+                    <Button Grid.Column="0" Clicked="GoToMainPage" Text="Go Back" Style="{StaticResource PrimaryBtn}" HorizontalOptions="End">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="FontAwesome" Glyph="&#xf177;" Size="15" />
+                        </Button.ImageSource>
+                    </Button>
+                </Grid>
+            </ContentView>
+
+            <CollectionView x:Name="CollectionViewName" ItemsSource="{Binding Users}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+
+                            <cmp:User UserP="{Binding}" Margin="10" />
+                            <Button Text="Delete" Style="{StaticResource PrimaryBtn}" Margin="10,0" IsVisible="{Binding . , Converter={StaticResource UserToVisibilityConverter}}"
+                Command="{Binding BindingContext.DeleteCommand, Source={x:Reference CollectionViewName}}"
+                CommandParameter="{Binding}">
+                                <Button.ImageSource>
+                                    <FontImageSource FontFamily="FontAwesome" Glyph="&#xf2ed;" Size="15" />
+                                </Button.ImageSource>
+                            </Button>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

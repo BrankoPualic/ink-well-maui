@@ -9,6 +9,8 @@
     <ContentPage.BindingContext>
         <local:AdminCommentPageVM></local:AdminCommentPageVM>
     </ContentPage.BindingContext>
+
+    <ScrollView>
     <VerticalStackLayout>
         <!-- ACTION LINE -->
         <ContentView Padding="10,10,10,0">
@@ -39,4 +41,6 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </VerticalStackLayout>
+        
+    </ScrollView>
 </ContentPage>

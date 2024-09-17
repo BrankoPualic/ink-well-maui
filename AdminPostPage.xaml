@@ -9,7 +9,8 @@
         <local:AdminPostPageVM></local:AdminPostPageVM>
     </ContentPage.BindingContext>
 
-    <VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
         <!-- ACTION LINE -->
         <ContentView Padding="10,10,10,0">
             <Grid ColumnDefinitions="Auto, *">
@@ -39,4 +40,6 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </VerticalStackLayout>
+        
+    </ScrollView>
 </ContentPage>

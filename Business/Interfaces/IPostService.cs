@@ -1,5 +1,6 @@
 ﻿using InkWell.MAUI.Business.Dtos;
 using InkWell.MAUI.Business.Dtos.Post;
+using InkWell.MAUI.Business.Dtos.User;
 
 namespace InkWell.MAUI.Business.Interfaces;
 

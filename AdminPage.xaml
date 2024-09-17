@@ -6,4 +6,5 @@
             xmlns:local="clr-namespace:InkWell.MAUI">
     <local:AdminPostPage Title="Posts" />
     <local:AdminCommentPage Title="Comments" />
+    <local:AdminUsersPage Title="Users" />
 </TabbedPage>
