@@ -7,7 +7,11 @@ public interface ICommentService
 {
 	Task<GridDto<CommentDto>> GetListAsync(Guid postId);
 
+	Task<IEnumerable<CommentDto>> GetAllAsync();
+
 	Task UpvoteAsync(Guid commentId);
 
 	Task CreateAsync(EntryCommentDto data);
+
+	Task DeleteAsync(Guid commentId);
 }
