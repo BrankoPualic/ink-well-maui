@@ -22,6 +22,8 @@ public class MainPageVM : BaseVM
 
 	public ICommand SigninCommand { get; }
 
+	public ICommand SignoutCommand { get; }
+
 	// Services
 
 	private readonly IPostService postService;
@@ -30,16 +32,18 @@ public class MainPageVM : BaseVM
 
 	public MProp<string> Username { get; set; } = new();
 
+	public MProp<bool> IsAdmin { get; set; } = new();
+
 	public MainPageVM()
 	{
-		SecureStorage.Default.Remove(Constants.STORAGE_USER);
 		postService = new PostService();
 
 		IsSignedIn.Value = Functions.IsSignedIn();
 		if (IsSignedIn.Value)
 		{
-			var user = SecureStorage.Default.GetUser();
+			var user = Functions.GetUserFromStorage();
 			Username.Value = user.Username;
+			IsAdmin.Value = Functions.IsAdmin();
 		}
 
 		Keyword.OnChange = LoadPosts;
@@ -47,8 +51,16 @@ public class MainPageVM : BaseVM
 		RefreshCommand = new Command(Refresh);
 		SignupCommand = new Command(Signup);
 		SigninCommand = new Command(Signin);
+		SignoutCommand = new Command(Signout);
 
 		LoadPosts();
+	}
+
+	private void Signout()
+	{
+		SecureStorage.Default.Remove(Constants.STORAGE_USER);
+		IsSignedIn.Value = false;
+		Username.Value = string.Empty;
 	}
 
 	private void Refresh() => LoadPosts();

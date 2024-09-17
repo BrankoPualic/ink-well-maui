@@ -24,6 +24,8 @@ public class PostPageVM : BaseVM, IAsyncInitializable
 
 	public MProp<string> Username { get; set; } = new();
 
+	public MProp<bool> IsAdmin { get; set; } = new();
+
 	public string CreateDetails => $"Created by {Post.Value?.Author.FullName} at {Post.Value?.CreatedAt.ToString(Constants.DATETIME_DATE_MONTH_FORMAT)}";
 
 	private readonly IPostService postService;
@@ -35,17 +37,28 @@ public class PostPageVM : BaseVM, IAsyncInitializable
 
 	public ICommand SubmitCommentCommand { get; }
 
+	public ICommand SignupCommand { get; }
+
+	public ICommand SigninCommand { get; }
+
+	public ICommand SignoutCommand { get; }
+
 	public PostPageVM()
 	{
 		SubmitCommentCommand = new Command(SubmitComment);
+		SignupCommand = new Command(Signup);
+		SigninCommand = new Command(Signin);
+		SignoutCommand = new Command(Signout);
+
 		postService = new PostService();
 		commentService = new CommentService();
 
 		IsSignedIn.Value = Functions.IsSignedIn();
 		if (IsSignedIn.Value)
 		{
-			var user = SecureStorage.Default.GetUser();
+			var user = Functions.GetUserFromStorage();
 			Username.Value = user.Username;
+			IsAdmin.Value = Functions.IsAdmin();
 		}
 	}
 
@@ -58,6 +71,17 @@ public class PostPageVM : BaseVM, IAsyncInitializable
 	public async Task InitializeAsync() => await FindAsync();
 
 	// private
+
+	private void Signup() => RedirectExtensions<SignupPage>.Redirect();
+
+	private void Signin() => RedirectExtensions<SigninPage>.Redirect();
+
+	private void Signout()
+	{
+		SecureStorage.Default.Remove(Constants.STORAGE_USER);
+		IsSignedIn.Value = false;
+		Username.Value = string.Empty;
+	}
 
 	private async Task FindAsync()
 	{

@@ -37,9 +37,16 @@
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Grid.Column="2" VerticalOptions="Center" IsVisible="{Binding IsSignedIn.Value}">
-                        <Label Text="Welcome" Margin="0,0,5,0"/>
-                        <Label Text="{Binding Username.Value}" TextColor="Blue" />
-                        <Label Text="!" />
+                        <Label Text="Welcome" Margin="0,0,5,0"  VerticalOptions="Center" />
+                        <Label Text="{Binding Username.Value}" TextColor="Blue" VerticalOptions="Center" />
+                        <Label Text="!"  VerticalOptions="Center" />
+                        <Button Text="Panel" IsVisible="{Binding IsAdmin.Value}" Command="{Binding AdminPanelCommand}" Style="{StaticResource PrimaryBtn}" Margin="
+                                5,0,0,0">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="FontAwesome" Glyph="&#xf085;" Size="15" />
+                            </Button.ImageSource>
+                        </Button>
+                        <Button Text="Sign out" Style="{StaticResource PrimaryBtn}" Command="{Binding SignoutCommand}" Margin="5,0,0,0" />
                     </HorizontalStackLayout>
                 </Grid>
             </Frame>

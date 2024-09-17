@@ -14,9 +14,9 @@ public partial class PostPage : ContentPage
 		InitializeComponent();
 	}
 
-	private void GoToSignup(object sender, EventArgs args) => RedirectExtensions<SignupPage>.Redirect();
+	//private void GoToSignup(object sender, EventArgs args) => RedirectExtensions<SignupPage>.Redirect();
 
-	private void GoToSignin(object sender, EventArgs args) => RedirectExtensions<SigninPage>.Redirect();
+	//private void GoToSignin(object sender, EventArgs args) => RedirectExtensions<SigninPage>.Redirect();
 
 	private void GoToMainPage(object sender, EventArgs args) => RedirectExtensions<MainPage>.Redirect();
 }
