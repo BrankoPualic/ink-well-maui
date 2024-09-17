@@ -68,6 +68,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="AdminCommentPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="AdminPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="AdminPostPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Components\Comment.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

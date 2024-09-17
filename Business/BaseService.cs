@@ -55,9 +55,7 @@ public class BaseService
 			.AddParameter(parameterKey, parameterValue, ParameterType.QueryString)
 			.AddJsonBody(body);
 
-	public static RestRequest Delete(string url, string parameterKey, string parameterValue) =>
-		new RestRequest(url, Method.Delete)
-			.AddParameter(parameterKey, parameterValue, ParameterType.QueryString);
+	public static RestRequest Delete(string url) => new(url, Method.Delete);
 
 	#endregion Requests
 
@@ -78,8 +76,7 @@ public class BaseService
 
 	public static RestResponse PutWithQueryParametersResponse(string url, object body, string parameterKey, string parameterValue) => Client.Execute(PutWithQueryParameters(url, body, parameterKey, parameterValue));
 
-	public static RestResponse DeleteResponse(string url, string parameterKey, string parameterValue) =>
-		Client.Execute(Delete(url, parameterKey, parameterValue));
+	public static RestResponse DeleteResponse(string url) => Client.Execute(Delete(url));
 
 	#endregion Responses
 }

@@ -45,6 +45,8 @@ public class PostPageVM : BaseVM, IAsyncInitializable
 
 	public ICommand LikeCommand { get; }
 
+	public ICommand AdminPanelCommand { get; }
+
 	public PostPageVM()
 	{
 		SubmitCommentCommand = new Command(SubmitComment);
@@ -52,6 +54,7 @@ public class PostPageVM : BaseVM, IAsyncInitializable
 		SigninCommand = new Command(Signin);
 		SignoutCommand = new Command(Signout);
 		LikeCommand = new Command(Like);
+		AdminPanelCommand = new Command(AdminPanel);
 
 		postService = new PostService();
 		commentService = new CommentService();
@@ -82,6 +85,8 @@ public class PostPageVM : BaseVM, IAsyncInitializable
 		await postService.LikeAsync(data);
 		await FindAsync();
 	}
+
+	private void AdminPanel() => RedirectExtensions<AdminPage>.Redirect();
 
 	private void Signup() => RedirectExtensions<SignupPage>.Redirect();
 

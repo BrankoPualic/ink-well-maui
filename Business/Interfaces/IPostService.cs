@@ -10,4 +10,6 @@ public interface IPostService
 	Task<PostDto> GetSingleAsync(Guid id);
 
 	Task LikeAsync(LikeDto data);
+
+	Task DeleteAsync(Guid id);
 }

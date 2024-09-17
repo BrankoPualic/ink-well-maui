@@ -24,6 +24,8 @@ public class MainPageVM : BaseVM
 
 	public ICommand SignoutCommand { get; }
 
+	public ICommand AdminPanelCommand { get; }
+
 	// Services
 
 	private readonly IPostService postService;
@@ -52,6 +54,7 @@ public class MainPageVM : BaseVM
 		SignupCommand = new Command(Signup);
 		SigninCommand = new Command(Signin);
 		SignoutCommand = new Command(Signout);
+		AdminPanelCommand = new Command(AdminPanel);
 
 		LoadPosts();
 	}
@@ -64,6 +67,8 @@ public class MainPageVM : BaseVM
 	}
 
 	private void Refresh() => LoadPosts();
+
+	private void AdminPanel() => RedirectExtensions<AdminPage>.Redirect();
 
 	private void Signup() => RedirectExtensions<SignupPage>.Redirect();
 

@@ -39,4 +39,10 @@ public class PostService : BaseService, IPostService
 
 		return;
 	}
+
+	public async Task DeleteAsync(Guid id)
+	{
+		var response = DeleteResponse($"post/{id}");
+		return;
+	}
 }
