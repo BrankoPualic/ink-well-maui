@@ -8,4 +8,6 @@ public interface IPostService
 	Task<GridDto<PostDto>> GetListAsync(string keyword);
 
 	Task<PostDto> GetSingleAsync(Guid id);
+
+	Task LikeAsync(LikeDto data);
 }

@@ -32,4 +32,11 @@ public class PostService : BaseService, IPostService
 			? response.Data
 			: null;
 	}
+
+	public async Task LikeAsync(LikeDto data)
+	{
+		var response = PostResponse("like", data);
+
+		return;
+	}
 }

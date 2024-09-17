@@ -43,12 +43,15 @@ public class PostPageVM : BaseVM, IAsyncInitializable
 
 	public ICommand SignoutCommand { get; }
 
+	public ICommand LikeCommand { get; }
+
 	public PostPageVM()
 	{
 		SubmitCommentCommand = new Command(SubmitComment);
 		SignupCommand = new Command(Signup);
 		SigninCommand = new Command(Signin);
 		SignoutCommand = new Command(Signout);
+		LikeCommand = new Command(Like);
 
 		postService = new PostService();
 		commentService = new CommentService();
@@ -71,6 +74,14 @@ public class PostPageVM : BaseVM, IAsyncInitializable
 	public async Task InitializeAsync() => await FindAsync();
 
 	// private
+
+	private async void Like()
+	{
+		LikeDto data = new();
+		data.ToDtoFromVm(this);
+		await postService.LikeAsync(data);
+		await FindAsync();
+	}
 
 	private void Signup() => RedirectExtensions<SignupPage>.Redirect();
 
