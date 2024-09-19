@@ -35,7 +35,7 @@ public class AuthService : BaseService, IAuthService
 			{
 				App.Current.MainPage = user.Roles switch
 				{
-					var roles when roles.Has(Constants.ROLE_ADMINISTRATOR) => new MainPage(),
+					var roles when roles.Has(Constants.ROLE_ADMINISTRATOR) => new AdminPage(),
 					var roles when roles.Has(Constants.ROLE_MEMEBER) => new MainPage(),
 					_ => throw new InvalidOperationException("Unknown role.")
 				};
